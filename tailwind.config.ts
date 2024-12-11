@@ -1,4 +1,5 @@
-import type { Config } from "tailwindcss";
+/* eslint-disable @typescript-eslint/no-require-imports */
+import type { Config } from "tailwindcss"
 
 export default {
   content: [
@@ -14,5 +15,5 @@ export default {
       },
     },
   },
-  plugins: [],
-} satisfies Config;
+  plugins: [require("daisyui")],
+} satisfies Config
