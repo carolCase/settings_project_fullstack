@@ -18,10 +18,10 @@ export default function NavBar() {
           className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
           <li>
-            <Link href="/settings1">Settings 1</Link>
+            <Link href="/devices">Devices</Link>
           </li>
           <li>
-            <Link href="/settings2">Settings 2</Link>
+            <Link href="/floors">Floors</Link>
           </li>
         </ul>
       </div>
@@ -38,7 +38,7 @@ export default function NavBar() {
         <li>
           <Link
             className="text-slate-300 hover:text-white text-xl"
-            href="/settings_dashboard"
+            href="/dashboard"
           >
             Settings Dashboard
           </Link>
