@@ -2,7 +2,9 @@ export default function Button() {
   return (
     <div>
       <button
-        className="px-6 py-3
+        className="
+        btn glass
+        px-6 py-3
         w-40
        bg-blue-950
         text-white 
