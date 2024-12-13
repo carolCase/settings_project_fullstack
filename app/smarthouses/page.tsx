@@ -1,7 +1,7 @@
 export default function Dashboard() {
   return (
     <main>
-      <p>Settings Dashboard</p>
+      <p>Smart houses</p>
     </main>
   )
 }

@@ -11,8 +11,8 @@ export default function Button() {
         font-semibold text-lg 
         rounded-lg shadow-md
         border-cyan-950
-         hover:bg-blue-900 hover:shadow-lg
-          active:bg-blue-700 focus:outline-none
+         hover:bg-cyan-600 hover:shadow-lg
+          active:bg-cyan-500 focus:outline-none
            focus:ring-blue-300 transition-all duration-300"
       >
         <p>Enter</p>

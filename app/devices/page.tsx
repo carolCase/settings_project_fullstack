@@ -18,11 +18,11 @@ export default function Devices() {
       <div className="max-w-fit mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/*Lights*/}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-lg">
             <h3 className="text-xl text-gray-500 font-medium mb-4">Lights</h3>
             <label
               htmlFor="light-brightness"
-              className="block mb-2 text-gray-400"
+              className="block mb-2 text-gray-500"
             >
               Brightness: {lightBrightness}%
             </label>
@@ -38,11 +38,11 @@ export default function Devices() {
           </div>
 
           {/* Temperature */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80  p-6 rounded-lg shadow-lg">
             <h3 className="text-xl  text-gray-500 font-medium mb-4">
               Temperature
             </h3>
-            <label htmlFor="temperature" className="block mb-2 text-gray-400">
+            <label htmlFor="temperature" className="block mb-2 text-gray-500">
               Temperature: {temperature}°C
             </label>
             <input
@@ -55,11 +55,11 @@ export default function Devices() {
           </div>
 
           {/* Speaker */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80  p-6 rounded-lg shadow-lg">
             <h3 className="text-xl   text-gray-500 font-medium mb-4">
               Speaker
             </h3>
-            <label htmlFor="volume" className="block mb-2 text-cyan-950">
+            <label htmlFor="volume" className="block mb-2 text-gray-500">
               Volume: {volume}%
             </label>
             <input
@@ -74,11 +74,11 @@ export default function Devices() {
           </div>
 
           {/* Door Lock */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80  p-6 rounded-lg shadow-lg">
             <h3 className="text-xl  text-gray-500 font-medium mb-4">
               Door Lock
             </h3>
-            <label htmlFor="door-lock" className="block mb-2 text-gray-400">
+            <label htmlFor="door-lock" className="block mb-2 text-gray-500">
               Locked: {doorLocked ? "Yes" : "No"}
             </label>
             <button
@@ -92,11 +92,11 @@ export default function Devices() {
           </div>
 
           {/* Curtains */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80  p-6 rounded-lg shadow-lg">
             <h3 className="text-xl  text-gray-500 font-medium mb-4">
               Curtains
             </h3>
-            <label htmlFor="curtain-open" className="block mb-2 text-gray-400">
+            <label htmlFor="curtain-open" className="block mb-2 text-gray-500">
               Open: {curtainOpen}%
             </label>
             <input
@@ -111,11 +111,11 @@ export default function Devices() {
           </div>
 
           {/* Security Camera */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-lg">
             <h3 className="text-xl  text-gray-500 font-medium mb-4">
               Security Camera
             </h3>
-            <label htmlFor="camera" className="block mb-2 text-gray-400">
+            <label htmlFor="camera" className="block mb-2 text-gray-500">
               Security Camera: {securityCamera ? "On" : "Off"}
             </label>
             <button
@@ -129,6 +129,7 @@ export default function Devices() {
           </div>
         </div>
       </div>
+      <p className="pt-10 pb-10 text-gray-500">Castros Inc</p>
     </div>
   )
 }

@@ -35,9 +35,9 @@ export default function NavBar() {
           <li>
             <Link
               className="text-slate-300 hover:text-white text-xl"
-              href="/dashboard"
+              href="/smarthouses"
             >
-              Settings Dashboard
+              Smart Houses
             </Link>
           </li>
         </ul>
