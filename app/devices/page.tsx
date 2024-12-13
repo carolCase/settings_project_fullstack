@@ -10,14 +10,14 @@ export default function Devices() {
   const [curtainOpen, setCurtainOpen] = useState(50)
 
   return (
-    <div className="min-h-screen bg-gray-300 p-8">
-      <h1 className="text-3xl font-semibold text-center mb-8 text-gray-700">
+    <div>
+      <h1 className="text-3xl font-semibold text-center mb-10 mt-10 text-gray-900">
         My Home Devices
       </h1>
 
       <div className="max-w-fit mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Lights */}
+          {/*Lights*/}
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl text-gray-500 font-medium mb-4">Lights</h3>
             <label
@@ -33,7 +33,7 @@ export default function Devices() {
               max="100"
               value={lightBrightness}
               onChange={(e) => setLightBrightness(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-full"
+              className="w-full h-2 bg-cyan-950 rounded-full"
             />
           </div>
 
@@ -50,7 +50,7 @@ export default function Devices() {
               id="temperature"
               value={temperature}
               onChange={(e) => setTemperature(parseInt(e.target.value))}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-cyan-950 rounded"
             />
           </div>
 
@@ -59,7 +59,7 @@ export default function Devices() {
             <h3 className="text-xl   text-gray-500 font-medium mb-4">
               Speaker
             </h3>
-            <label htmlFor="volume" className="block mb-2 text-gray-400">
+            <label htmlFor="volume" className="block mb-2 text-cyan-950">
               Volume: {volume}%
             </label>
             <input
@@ -69,7 +69,7 @@ export default function Devices() {
               max="100"
               value={volume}
               onChange={(e) => setVolume(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-full"
+              className="w-full h-2 bg-cyan-950 rounded-full"
             />
           </div>
 
@@ -106,7 +106,7 @@ export default function Devices() {
               max="100"
               value={curtainOpen}
               onChange={(e) => setCurtainOpen(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-full"
+              className="w-full h-2 bg-cyan-950 rounded-full"
             />
           </div>
 

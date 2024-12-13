@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-300 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-cover bg-center`}
+        style={{ backgroundImage: "url('/setting_Image.jpg')" }}
       >
         <NavBar />
         <main className="pt-20 px-5">{children}</main>

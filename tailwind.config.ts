@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "home-bg": "url('/setting_Image.jpg')",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

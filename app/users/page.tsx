@@ -62,12 +62,9 @@ export default function User() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <h1 className="text-3xl font-semibold text-center text-gray-500 mb-8">
-        User Managment
-      </h1>
+    <div className="pt-20">
       <div className="mb-6 p-4 bg-white shadow rounded-lg">
-        <h2 className="text-xl font-medium text-gray-500 mb-4">
+        <h2 className="text-xl font-medium text-gray-600 mb-4">
           Create New User
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -97,7 +94,7 @@ export default function User() {
           <div>
             <button
               onClick={handleCreateUser}
-              className="btn glass mt-4 bg-blue-800 text-white py-2 px-4 rounded hover:bg-blue-800"
+              className="btn glass mt-4 bg-cyan-950 text-white py-2 px-4 rounded hover:bg-blue-900"
             >
               Create User
             </button>
