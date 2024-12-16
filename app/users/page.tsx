@@ -12,6 +12,16 @@ interface User {
 }
 
 export default function User() {
+  const imageLibrary = [
+    "/predator.jpg",
+    "/alien.jpg",
+    "/terminator.jpg",
+    "/subzero.jpg",
+    "/reptile.jpeg",
+    "/kitana.jpg",
+    "/raiden.jpg",
+  ]
+
   const [users, setUsers] = useState<User[]>([])
   const [newUser, setNewUser] = useState({
     name: "",
@@ -31,11 +41,18 @@ export default function User() {
   }, [])
 
   const handleCreateUser = async () => {
+    const randomImage =
+      imageLibrary[Math.floor(Math.random() * imageLibrary.length)]
+    const userWithAvatar = {
+      ...newUser,
+      avatar: newUser.avatar || randomImage,
+    }
+
     try {
       const response = await fetch("http://localhost:8080/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(userWithAvatar),
       })
       if (!response.ok)
         throw new Error(`HTTP error! Status: ${response.status}`)
