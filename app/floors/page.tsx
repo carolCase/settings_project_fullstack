@@ -8,18 +8,16 @@ export default function Floors() {
   const [isModalTwoOpen, setModalTwoOpen] = useState(false)
 
   return (
-    <div className="mt-12 flex items-center justify-center space-x-16">
+    <div className="mt-12 flex justify-items-start space-x-16">
       <Image
         src="/house_floors.jpg"
         alt="House Floors"
         width={500}
         height={500}
-        className="rounded-lg shadow-lg mr-50"
+        className="rounded-lg shadow-lg"
       />
 
-      {/* Floor Buttons on the Right */}
-      <div className="flex flex-col space-y-6">
-        {/* First Floor Modal Button */}
+      <div className="flex flex-col space-y-6 ml-auto">
         <div>
           <button
             onClick={() => setModalOneOpen(true)}
@@ -49,7 +47,6 @@ export default function Floors() {
           )}
         </div>
 
-        {/* Second Floor Modal Button */}
         <div>
           <button
             onClick={() => setModalTwoOpen(true)}
