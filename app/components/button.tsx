@@ -1,8 +1,11 @@
+import Link from "next/link"
+
 export default function Button() {
   return (
-    <div>
-      <button
-        className="
+    <Link href="/login">
+      <div>
+        <button
+          className="
         btn glass 
         px-6 py-3
         w-40
@@ -14,9 +17,10 @@ export default function Button() {
          hover:bg-cyan-600 hover:shadow-lg
           active:bg-cyan-500 focus:outline-none
            focus:ring-blue-300 transition-all duration-300"
-      >
-        <p>Enter</p>
-      </button>
-    </div>
+        >
+          <p>Login</p>
+        </button>
+      </div>
+    </Link>
   )
 }

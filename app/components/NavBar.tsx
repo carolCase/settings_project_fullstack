@@ -26,7 +26,7 @@ export default function NavBar() {
               <Link href="/floors">Floors</Link>
             </li>
             <li>
-              <Link href="/users">User Managment</Link>
+              <Link href="/register">User Managment</Link>
             </li>
           </ul>
         </div>
