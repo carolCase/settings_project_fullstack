@@ -2,42 +2,35 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function LoginPage() {
-  const [credentials, setCredentials] = useState({ username: "", password: "" })
   const [error, setError] = useState<string | null>(null)
+  const [credentials, setCredentials] = useState({ username: "", password: "" })
   const router = useRouter()
 
   const handleLogin = async () => {
-    if (error) setError(null)
+    setError(null)
 
     if (!credentials.username || !credentials.password) {
-      setError("Both username and password are required.")
+      setError("Both fields are required.")
       return
     }
 
     try {
-      // Create URL encoded body
-      const urlEncodedBody = new URLSearchParams({
-        username: credentials.username,
-        password: credentials.password,
-      }).toString()
-
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        credentials: "include", // Send cookies with the request
-        body: urlEncodedBody,
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(credentials),
       })
 
       if (!response.ok) {
         const errorText = await response.text()
-        throw new Error(errorText || "Login failed. Please try again.")
+        throw new Error(errorText || "Login failed.")
       }
 
-      // If successful, navigate to devices page
       router.push("/devices")
     } catch (err) {
       if (err instanceof Error) {
@@ -56,30 +49,27 @@ export default function LoginPage() {
         </h1>
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <div className="space-y-4">
-          <input
+          <Input
             type="text"
             placeholder="Username"
             value={credentials.username}
             onChange={(e) =>
               setCredentials({ ...credentials, username: e.target.value })
             }
-            className="w-full px-4 py-2 border-gray-300 rounded focus:ring focus:ring-cyan-500"
           />
-          <input
+
+          <Input
             type="password"
             placeholder="Password"
             value={credentials.password}
             onChange={(e) =>
               setCredentials({ ...credentials, password: e.target.value })
             }
-            className="w-full px-4 py-2 border-gray-300 rounded focus:ring focus:ring-cyan-500"
           />
-          <button
-            onClick={handleLogin}
-            className="w-full py-2 px-4 border-lg bg-cyan-600 text-white rounded-lg hover:bg-cyan-700"
-          >
+
+          <Button onClick={handleLogin} className="w-full">
             Login
-          </button>
+          </Button>
         </div>
       </div>
     </div>
