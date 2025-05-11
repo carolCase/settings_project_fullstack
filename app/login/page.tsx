@@ -42,12 +42,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="w-full max-w-md p-6 bg-white opacity-85 rounded shadow">
-        <h1 className="text-2xl font-semibold mb-4 text-center text-slate-500">
-          Login
-        </h1>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+    <div className="flex min-h-screen justify-center px-4 pt-8 pb-8">
+      <div className="w-full max-w-md bg-white/20 backdrop-blur-md p-8 rounded-xl shadow-xl border border-white/30 text-white space-y-6">
+        <h1 className="text-3xl font-bold text-center">Login</h1>
+
+        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+
         <div className="space-y-4">
           <Input
             type="text"
@@ -56,8 +56,8 @@ export default function LoginPage() {
             onChange={(e) =>
               setCredentials({ ...credentials, username: e.target.value })
             }
+            className="bg-white/30 placeholder-white text-white border border-white/30"
           />
-
           <Input
             type="password"
             placeholder="Password"
@@ -65,11 +65,32 @@ export default function LoginPage() {
             onChange={(e) =>
               setCredentials({ ...credentials, password: e.target.value })
             }
+            className="bg-white/30 placeholder-white text-white border border-white/30"
           />
 
-          <Button onClick={handleLogin} className="w-full">
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" className="accent-white" />
+              Remember me
+            </label>
+            <a href="#" className="underline text-white/80 hover:text-white">
+              Forgot password?
+            </a>
+          </div>
+
+          <Button
+            onClick={handleLogin}
+            className="w-full bg-white text-slate-900 hover:bg-slate-100"
+          >
             Login
           </Button>
+
+          <p className="text-center text-sm text-white/80">
+            Don’t have an account?{" "}
+            <a href="/register" className="underline text-white">
+              Register
+            </a>
+          </p>
         </div>
       </div>
     </div>

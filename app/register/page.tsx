@@ -64,28 +64,39 @@ export default function UserPage() {
   }
 
   return (
-    <div className="pt-20">
-      <div className="mb-6 p-4 bg-white shadow rounded-lg">
-        <h2 className="text-xl font-medium text-gray-600 mb-4">
-          Add House User
-        </h2>
-        <Input
-          type="text"
-          placeholder="Full Name (optional)"
-          value={newUser.fullName}
-          onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
-        />
+    <div className="flex min-h-screen justify-center px-4 pt-8 pb-8">
+      <div className="w-full max-w-md bg-white/20 backdrop-blur-md p-8 rounded-xl shadow-xl border border-white/30 text-white space-y-6">
+        <h1 className="text-3xl font-bold text-center">Register</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {showErrors && (
+          <p className="text-red-400 text-sm text-center">
+            Email and password are required.
+          </p>
+        )}
+
+        <div className="space-y-4">
           <Input
             type="text"
+            placeholder="Full Name (optional)"
+            value={newUser.fullName}
+            onChange={(e) =>
+              setNewUser({ ...newUser, fullName: e.target.value })
+            }
+            className="bg-white/30 placeholder-white text-white border border-white/30"
+          />
+          <Input
+            type="email"
             placeholder="Email"
             value={newUser.email}
             onChange={(e) => {
               setShowErrors(false)
               setNewUser({ ...newUser, email: e.target.value })
             }}
-            className={showErrors && !newUser.email ? "border-red-500" : ""}
+            className={`bg-white/30 placeholder-white text-white border ${
+              showErrors && !newUser.email
+                ? "border-red-500"
+                : "border-white/30"
+            }`}
           />
           <Input
             type="password"
@@ -93,13 +104,28 @@ export default function UserPage() {
             value={newUser.password}
             onChange={(e) => {
               setShowErrors(false)
-              setNewUser({ ...newUser, email: e.target.value })
+              setNewUser({ ...newUser, password: e.target.value })
             }}
-            className={showErrors && !newUser.email ? "border-red-500" : ""}
+            className={`bg-white/30 placeholder-white text-white border ${
+              showErrors && !newUser.password
+                ? "border-red-500"
+                : "border-white/30"
+            }`}
           />
-          <Button onClick={handleCreateUser} className="mt-4">
-            Create New User
+
+          <Button
+            onClick={handleCreateUser}
+            className="w-full bg-white text-slate-900 hover:bg-slate-100"
+          >
+            Create Account
           </Button>
+
+          <p className="text-center text-sm text-white/80">
+            Already have an account?{" "}
+            <a href="/login" className="underline text-white">
+              Login
+            </a>
+          </p>
         </div>
       </div>
     </div>
