@@ -1,105 +1,90 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import type { User, NewUser } from "@/app/types/CustomUser"
+import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
-export default function UserPage() {
-  const [users, setUsers] = useState<User[]>([])
-  const [showErrors, setShowErrors] = useState(false)
-
-  const [newUser, setNewUser] = useState<NewUser>({
+export default function RegisterPage() {
+  const [form, setForm] = useState({
     email: "",
     password: "",
     fullName: "",
   })
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await fetch("http://localhost:8080/users", {
-          method: "GET",
-        })
-        if (!res.ok) throw new Error("Failed to fetch users.")
-        const data = await res.json()
-        console.log("Fetched users:", users)
-        setUsers(data)
-      } catch (err) {
-        console.error("Error fetching users:", err)
-      }
-    }
+  const handleRegister = async () => {
+    setError(null)
 
-    fetchUsers()
-  }, [])
-
-  const handleCreateUser = async () => {
-    if (!newUser.email || !newUser.password) {
-      setShowErrors(true)
+    if (!form.email || !form.password) {
+      setError("Email and password are required.")
       return
     }
-    setShowErrors(false)
-    console.log(showErrors)
+
     try {
       const response = await fetch("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(newUser),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
       })
 
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || "Failed to register user.")
+        throw new Error(result.error || "Registration failed.")
       }
 
-      alert("User registered successfully!")
-    } catch (error) {
-      console.error("Error creating user:", error)
-      alert("An error occurred while creating the user.")
+      router.push("/login")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error occurred")
     }
   }
 
   return (
-    <div className="pt-20">
-      <div className="mb-6 p-4 bg-white shadow rounded-lg">
-        <h2 className="text-xl font-medium text-gray-600 mb-4">
-          Add House User
-        </h2>
-        <Input
-          type="text"
-          placeholder="Full Name (optional)"
-          value={newUser.fullName}
-          onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
-        />
+    <div className="flex h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white/20 backdrop-blur-md p-8 rounded-xl shadow-xl border border-white/30 text-white space-y-6">
+        <h1 className="text-3xl font-bold text-center">Register</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+
+        <div className="space-y-4">
           <Input
             type="text"
+            placeholder="Full Name (optional)"
+            value={form.fullName}
+            onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+            className="bg-white/30 placeholder-white text-white border border-white/30"
+          />
+          <Input
+            type="email"
             placeholder="Email"
-            value={newUser.email}
-            onChange={(e) => {
-              setShowErrors(false)
-              setNewUser({ ...newUser, email: e.target.value })
-            }}
-            className={showErrors && !newUser.email ? "border-red-500" : ""}
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="bg-white/30 placeholder-white text-white border border-white/30"
           />
           <Input
             type="password"
             placeholder="Password"
-            value={newUser.password}
-            onChange={(e) => {
-              setShowErrors(false)
-              setNewUser({ ...newUser, email: e.target.value })
-            }}
-            className={showErrors && !newUser.email ? "border-red-500" : ""}
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className="bg-white/30 placeholder-white text-white border border-white/30"
           />
-          <Button onClick={handleCreateUser} className="mt-4">
-            Create New User
+
+          <Button
+            onClick={handleRegister}
+            className="w-full bg-white text-slate-900 hover:bg-slate-100"
+          >
+            Create Account
           </Button>
+
+          <p className="text-center text-sm text-white/80">
+            Already have an account?{" "}
+            <a href="/login" className="underline text-white">
+              Login
+            </a>
+          </p>
         </div>
       </div>
     </div>
