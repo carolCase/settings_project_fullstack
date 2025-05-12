@@ -1,12 +1,18 @@
-import Button from "./components/button"
+"use client"
 
-export default function Home() {
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+
+export default function HomePage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push("/login")
+  }, [router])
+
   return (
-    <div className=" w-full h-screen flex flex-col items-center justify-center  space-y-6 bg-cover ">
-      <h2 className="text-5xl text-center text-slate-950 italic pb-6">
-        Welcome to Home Settings
-      </h2>
-      <Button />
+    <div className="flex h-screen items-center justify-center">
+      <p className="text-slate-500 text-xl">Redirecting to login...</p>
     </div>
   )
 }
