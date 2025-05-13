@@ -30,9 +30,20 @@ export default function LoginPage() {
         throw new Error(errorText || "Login failed.")
       }
 
-      router.push("/devices")
+      const whoami = await fetch("http://localhost:8080/who-am-i", {
+        credentials: "include",
+      })
+
+      const text = await whoami.text()
+
+      if (text.includes("OWNER")) {
+        router.push("/users")
+      } else {
+        router.push("/devices")
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error occurred")
+      if (err instanceof Error) setError(err.message)
+      else setError("Unknown error")
     }
   }
 
