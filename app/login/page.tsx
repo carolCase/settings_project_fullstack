@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 export default function LoginPage() {
-  const [credentials, setCredentials] = useState({ username: "", password: "" })
+  const [credentials, setCredentials] = useState({ email: "", password: "" })
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
   const handleLogin = async () => {
     setError(null)
-    if (!credentials.username || !credentials.password) {
+    if (!credentials.email || !credentials.password) {
       setError("Both fields are required.")
       return
     }
@@ -22,7 +22,10 @@ export default function LoginPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({
+          username: credentials.email,
+          password: credentials.password,
+        }),
       })
 
       if (!response.ok) {
@@ -57,10 +60,10 @@ export default function LoginPage() {
         <div className="space-y-4">
           <Input
             type="text"
-            placeholder="Username"
-            value={credentials.username}
+            placeholder="Email"
+            value={credentials.email}
             onChange={(e) =>
-              setCredentials({ ...credentials, username: e.target.value })
+              setCredentials({ ...credentials, email: e.target.value })
             }
             className="bg-white/30 placeholder-white text-white border border-white/30"
           />
