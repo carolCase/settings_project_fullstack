@@ -12,6 +12,7 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     setError(null)
+
     if (!credentials.email || !credentials.password) {
       setError("Both fields are required.")
       return
@@ -21,29 +22,18 @@ export default function LoginPage() {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({
           username: credentials.email,
           password: credentials.password,
         }),
       })
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(errorText || "Login failed.")
-      }
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || "Login failed.")
 
-      const whoami = await fetch("http://localhost:8080/who-am-i", {
-        credentials: "include",
-      })
+      localStorage.setItem("token", data.token)
 
-      const text = await whoami.text()
-
-      if (text.includes("OWNER")) {
-        router.push("/users")
-      } else {
-        router.push("/devices")
-      }
+      router.push("/devices")
     } catch (err) {
       if (err instanceof Error) setError(err.message)
       else setError("Unknown error")

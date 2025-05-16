@@ -7,6 +7,11 @@ import Link from "next/link"
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
+  const handleLogout = () => {
+    document.cookie = "authToken=; Max-Age=0; path=/"
+
+    window.location.href = "/login"
+  }
 
   return (
     <div
@@ -56,8 +61,15 @@ export default function Sidebar() {
           )}
         </div>
       </nav>
+      <Button
+        variant="ghost"
+        className="w-full text-left px-4 py-2 text-white text-sm "
+        onClick={handleLogout}
+      >
+        Logout
+      </Button>
 
-      <div className="mt-auto px-4 py-3 text-xs text-white text-center border-t border-white/40">
+      <div className="mt-auto px-4 py-3 text-xs text-white text-center border-t hover:bg-transparent">
         {collapsed ? (
           <span>SH</span>
         ) : (

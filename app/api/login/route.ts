@@ -14,16 +14,14 @@ export async function POST(req: NextRequest) {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: urlEncodedBody,
+    credentials: "include",
   })
 
   const token = await springResponse.text()
 
   if (!springResponse.ok) {
-    return NextResponse.json(
-      { error: token },
-      { status: springResponse.status }
-    )
+    return new NextResponse(token, { status: springResponse.status }) // return plain text
   }
 
-  return NextResponse.json({ token })
+  return new NextResponse(token)
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import {
   Select,
@@ -21,35 +22,58 @@ interface User {
 
 export default function UserManagementPage() {
   const [users, setUsers] = useState<User[]>([])
-  const [error, setError] = useState<string | null>(null)
+  const [error] = useState<string | null>(null)
+  const [role, setRole] = useState<string | null>(null)
+  const [fullName, setFullName] = useState<string | null>(null)
+
+  const router = useRouter()
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      router.push("/login")
+      return
+    }
+
+    const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:8080/users", {
-          method: "GET",
-          credentials: "include",
+        const res = await fetch("http://localhost:8080/who-am-i", {
+          headers: { Authorization: `Bearer ${token}` },
         })
-        if (!res.ok) throw new Error("Failed to fetch users.")
+        if (!res.ok) throw new Error("Not authenticated")
+
         const data = await res.json()
-        setUsers(data)
+        console.log("User role:", role)
+        setRole(data.role)
+        console.log("User fullName:", fullName)
+        setFullName(data.fullName)
+
+        if (data.role === "OWNER") {
+          const usersRes = await fetch("http://localhost:8080/users", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          const usersData = await usersRes.json()
+          setUsers(usersData)
+        }
       } catch (err) {
-        setError("Could not load users.")
-        console.error(err)
+        console.error("Not authenticated", err)
+        router.push("/login")
       }
     }
 
-    fetchUsers()
+    fetchUser()
   }, [])
 
   const handleRoleChange = async (userId: number, newRole: Role) => {
     try {
+      const token = localStorage.getItem("token")
+
       const res = await fetch(`http://localhost:8080/users/${userId}/role`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
         body: JSON.stringify({ role: newRole }),
       })
 

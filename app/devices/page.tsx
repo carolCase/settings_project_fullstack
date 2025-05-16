@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import Sidebar from "../components/sidebars/Sidebar"
 import SidebarMember from "../components/sidebars/SidebarMember"
-
+import { useRouter } from "next/navigation"
 export default function Devices() {
   const [lightBrightness, setLightBrightness] = useState(50)
   const [temperature, setTemperature] = useState(22)
@@ -11,29 +11,46 @@ export default function Devices() {
   const [securityCamera, setSecurityCamera] = useState(false)
   const [curtainOpen, setCurtainOpen] = useState(50)
   const [role, setRole] = useState<string | null>(null)
-
+  const [fullName, setFullName] = useState<string | null>(null)
+  const router = useRouter()
   useEffect(() => {
-    const fetchRole = async () => {
-      const res = await fetch("http://localhost:8080/who-am-i", {
-        credentials: "include",
-      })
-      const text = await res.text()
-      if (text.includes("OWNER")) setRole("OWNER")
-      else if (text.includes("MEMBER")) setRole("MEMBER")
-      else setRole("GUEST")
+    const fetchUserInfo = async () => {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        router.push("/login")
+        return
+      }
+
+      try {
+        const res = await fetch("http://localhost:8080/who-am-i", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        if (!res.ok) throw new Error("Not authenticated")
+
+        const data = await res.json()
+        setRole(data.role)
+        setFullName(data.fullName)
+      } catch (err) {
+        console.error("Failed to fetch user info", err)
+        router.push("/login")
+      }
     }
 
-    fetchRole()
+    fetchUserInfo()
   }, [])
-
-  if (!role) return null
   return (
     <div className="flex min-h-screen">
       {role === "OWNER" ? <Sidebar /> : <SidebarMember />}
       <div className="flex-1 p-6">
-        <h1 className="text-3xl font-semibold text-center mb-10 mt-10 text-gray-900">
-          My Home Devices
-        </h1>
+        <div className="pt-10">
+          {fullName && (
+            <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+              Welcome, {fullName}!
+            </h2>
+          )}
+        </div>
 
         <div className="max-w-fit mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
